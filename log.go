@@ -23,20 +23,17 @@ type Logger struct {
 }
 
 var gLogger *Logger
-var (
-	gLogger *Logger = nil
-)
 
 func init() {
 	gLogger = newLogger()
 }
 
-func getLogger() *Logger {
+func Get() *Logger {
 	return gLogger
 }
 
 func newLogger() *Logger {
-	l := Logger()
+	l := Logger{}
 	l.internal = nil
 	l.level = EMERG
 	return &l
@@ -47,7 +44,7 @@ func Set(l *log.Logger, lv Priority) {
 	gLogger.level = lv
 }
 
-func (l *Logger) write(Priority lv, msg string, v ...interface{}) {
+func (l *Logger) write(lv Priority, msg string, v ...interface{}) {
 	if l.level > lv {
 		return
 	}
@@ -60,33 +57,33 @@ func (l *Logger) write(Priority lv, msg string, v ...interface{}) {
 }
 
 func (l *Logger) Debug(msg string, v ...interface{}) {
-	write(DEBUG, msg, v...)
+	l.write(DEBUG, msg, v...)
 }
 
 func (l *Logger) Info(msg string, v ...interface{}) {
-	write(INFO, msg, v...)
+	l.write(INFO, msg, v...)
 }
 
 func (l *Logger) Notice(msg string, v ...interface{}) {
-	write(NOTICE, msg, v...)
+	l.write(NOTICE, msg, v...)
 }
 
 func (l *Logger) Warning(msg string, v ...interface{}) {
-	write(WARNING, msg, v...)
+	l.write(WARNING, msg, v...)
 }
 
 func (l *Logger) Error(msg string, v ...interface{}) {
-	write(ERR, msg, v...)
+	l.write(ERR, msg, v...)
 }
 
 func (l *Logger) Critical(msg string, v ...interface{}) {
-	write(CRIT, msg, v...)
+	l.write(CRIT, msg, v...)
 }
 
 func (l *Logger) Alert(msg string, v ...interface{}) {
-	write(ALERT, msg, v...)
+	l.write(ALERT, msg, v...)
 }
 
 func (l *Logger) Emergency(msg string, v ...interface{}) {
-	write(EMERG, msg, v...)
+	l.write(EMERG, msg, v...)
 }
