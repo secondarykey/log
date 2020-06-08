@@ -45,7 +45,7 @@ func Set(l *log.Logger, lv Priority) {
 }
 
 func (l *Logger) write(lv Priority, msg string, v ...interface{}) {
-	if l.level > lv {
+	if lv > l.level {
 		return
 	}
 
