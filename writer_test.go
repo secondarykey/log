@@ -9,7 +9,7 @@ import (
 
 func TestWriter(t *testing.T) {
 
-	w, err := own.NewRollingFileWriter("./", "prefix", own.Day)
+	w, err := own.NewRollingFileWriter("./", own.Day)
 	if err != nil {
 		t.Errorf("NewRollingFileWriter error")
 	}
@@ -19,7 +19,7 @@ func TestWriter(t *testing.T) {
 }
 
 func TestRolling(t *testing.T) {
-	w, err := own.NewRollingFileWriter("./", "prefix", own.Second)
+	w, err := own.NewRollingFileWriter("./", own.Second)
 	if err != nil {
 		t.Errorf("NewRollingFileWriter error")
 	}
